@@ -2,16 +2,15 @@
 
 Projet à quatre parce que nous sommes en avance.
 
+## Calculatrice PM
 
-# Calculatrice PM
+- **prerequisites** :
 
-- prerequest :
+at least node 20.11.1
 
-at least nod 20.11.1 
+- **initialisation** :
 
-- initialisation :
-
-install npm : npm i
-install type script : npm install typescript --save-dev
+    - install npm : `npm i`
+    - install typescript : `npm install typescript --save-dev`
 
 It's done !
