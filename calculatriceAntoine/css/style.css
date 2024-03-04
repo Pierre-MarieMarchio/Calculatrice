@@ -19,7 +19,7 @@ body {
 }
 
 .calculator #display {
-    width: calc(100% - 30px); /* Largeur ajustée */
+    width: calc(100% - 30px); 
     padding: 10px;
     margin-bottom: 20px;
     font-size: 24px;
@@ -28,7 +28,7 @@ body {
     background-color: #f0f0f0;
     outline: none;
     text-align: right;
-    padding-right: 15px; /* Ajustement de la marge droite */
+    padding-right: 15px; 
 }
 
 .calculator .buttons button {
