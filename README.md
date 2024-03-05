@@ -11,6 +11,6 @@ at least node 20.11.1
 - **initialisation** :
 
     - install npm : `npm i`
-    - install typescript : `npm install typescript --save-dev`
+    - install typescript : `npm install -g typescript`
 
 It's done !
