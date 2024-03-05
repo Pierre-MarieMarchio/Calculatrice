@@ -14,7 +14,7 @@ body {
     background-color: #ffffff;
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    padding: 20px;
+    padding: 35px;
     text-align: center;
     width: 320px;
 }
@@ -70,4 +70,3 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
