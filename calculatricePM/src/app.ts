@@ -1,4 +1,4 @@
-import { calculatrice } from "../src/calculatrice";
+import { calculatrice } from "./calculatrice.js";
 
 const numberButton: NodeListOf<HTMLElement> =
   document.querySelectorAll("[data-number");
