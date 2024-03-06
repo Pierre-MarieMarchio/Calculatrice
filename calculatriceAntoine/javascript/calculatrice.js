@@ -1,5 +1,7 @@
 const display = document.getElementById("display");
+const history = [];
 
+// event clavier user
 let handleKeyPressKeyBoard = (event) => {
   let keyValue = event.key;
   if (!isNaN(keyValue) || "+-*/%".includes(keyValue)) {
@@ -12,8 +14,7 @@ let handleKeyPressKeyBoard = (event) => {
 };
 document.addEventListener("keydown", handleKeyPressKeyBoard);
 
-let isEqualPressed = false;
-
+// Gestion chiffre display
 let addToDisplay = (value) => {
   if (isEqualPressed) {
     display.value = "";
@@ -22,23 +23,18 @@ let addToDisplay = (value) => {
   display.value += value;
 };
 
-let onClickNumber = (number) => {
-  addToDisplay(number);
-};
-
-let onClickOperator = (operator) => {
-  addToDisplay(operator);
-};
-
+// efface all
 let clearAll = () => {
-  document.getElementById("display").value = "";
+  display.value = "";
 };
 
+// efface un caractère du display
 let clearEntry = () => {
-  let displayValue = document.getElementById("display").value;
-  document.getElementById("display").value = displayValue.slice(0, -1);
+  let displayValue = display.value;
+  display.value = displayValue.slice(0, -1);
 };
 
+// Éval expression math
 let evaluateExpression = (expression) => {
   expression = expression.replace(/\s+/g, "");
 
@@ -93,12 +89,36 @@ let evaluateExpression = (expression) => {
   return result;
 };
 
+// Fonction calcul
+let isEqualPressed = false;
 let calculate = () => {
-  let expression = document.getElementById("display").value;
+  let expression = display.value;
   try {
     let result = evaluateExpression(expression);
-    document.getElementById("display").value = result;
+    display.value = result;
+    history.push(`${expression} = ${result}`);
+    updateHistory();
+    if (history.length >= 5) {
+      clearHistory();
+    }
   } catch (error) {
-    document.getElementById("display").value = "Erreur: " + error.message;
+    display.value = "Erreur: " + error.message;
   }
+};
+
+// Maj historique
+let updateHistory = () => {
+  let historyElement = document.getElementById("history");
+  historyElement.innerHTML = "<h4>Historique des calculs</h4>";
+  for (let i = history.length - 1; i >= 0; i--) {
+    let entry = document.createElement("p");
+    entry.textContent = history[i];
+    historyElement.appendChild(entry);
+  }
+};
+
+// Effacement de l'historique
+let clearHistory = () => {
+  history.length = 0;
+  updateHistory();
 };

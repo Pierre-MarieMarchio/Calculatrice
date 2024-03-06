@@ -70,3 +70,38 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
 }
+
+#history-container {
+    position: relative;
+    overflow: hidden;
+    width: 220px; 
+    height: 250px; 
+    
+  }
+  
+  #history {
+    position: absolute;
+    top: 0;
+    right: 200px; 
+    width: calc(100% + 20px); 
+    height: 100%;
+    border-radius: 20px;
+    text-align: center;
+    background-color: #ffffff;
+    transition: transform 0.3s ease-in-out;
+    
+  }
+  
+  #history-container:hover #history {
+    transform: translateX(200px); 
+  }
+  
+  #history h4 {
+    font-style: oblique;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  
+  #history p {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  
