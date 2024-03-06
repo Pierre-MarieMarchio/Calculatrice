@@ -1,4 +1,4 @@
-import { calculatrice } from "./calculatrice.js";
+import { Calculator } from "./calculatrice.js";
 
 const numberButton: NodeListOf<HTMLElement> =
   document.querySelectorAll("[data-number");
@@ -17,5 +17,19 @@ const currentOperandTextElement: HTMLElement | null = document.querySelector(
   "[data-currentOperand]"
 );
 
-calculatrice();
+if (previousOperandTextElement && currentOperandTextElement) {
+  const calculator = new Calculator(
+    previousOperandTextElement,
+    currentOperandTextElement
+  );
 
+  numberButton.forEach((button) => {
+    button.addEventListener("click", () => {
+      calculator.appendNumber(button.innerText);
+      calculator.updateDisplay();
+    });
+  });
+  
+} else {
+  console.error("Il y a une couille dans le patté");
+}
