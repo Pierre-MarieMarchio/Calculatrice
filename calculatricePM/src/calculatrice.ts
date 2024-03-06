@@ -70,10 +70,23 @@ export class Calculator {
   }
 
   getDisplayNumber(number: string): string {
+    const integerNumber: number = parseFloat(number.split(".")[0]);
+    const decimalNumber: string = number.split(".")[1];
+    let integerDisplay: string
 
-    if (isNaN(parseFloat(number))) return ''
+    if (isNaN(integerNumber)) {
+      integerDisplay = "";
+    } else {
+      integerDisplay = integerNumber.toLocaleString("fr", {maximumFractionDigits: 0})
+    }
 
-    return parseFloat(number).toLocaleString('fr');
+    if (decimalNumber != null) {
+      return `${integerDisplay}.${decimalNumber}`
+    } else {
+      return integerDisplay
+    }
+
+    return parseFloat(number).toLocaleString("fr");
   }
 
   updateDisplay() {
