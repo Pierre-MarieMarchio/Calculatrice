@@ -32,7 +32,7 @@ if (previousOperandTextElement && currentOperandTextElement) {
 
   operationButton.forEach((button) => {
     button.addEventListener("click", () => {
-      calculator.choseOperattion(button.innerText);
+      calculator.chooseOperation(button.innerText);
       calculator.updateDisplay();
     });
   });

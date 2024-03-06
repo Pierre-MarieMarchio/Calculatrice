@@ -3,7 +3,7 @@ export class Calculator {
   currentOperandTextElement: HTMLElement;
   currentOperand: string = "";
   previousOperand: string = "";
-  operations: string | undefined;
+  operation: string | undefined;
 
   constructor(
     previousOperandTextElement: HTMLElement,
@@ -17,76 +17,76 @@ export class Calculator {
   clear(): void {
     this.currentOperand = "";
     this.previousOperand = "";
-    this.operations = undefined;
+    this.operation = undefined;
   }
 
   delete() {
-    this.currentOperand = this.currentOperand.slice(0, -1);
+    this.currentOperand = this.currentOperand.toString().slice(0, -1);
   }
 
   appendNumber(number: string) {
     if (number === "." && this.currentOperand.includes(".")) return;
-    this.currentOperand = this.currentOperand + number;
+    this.currentOperand = this.currentOperand.toString() + number.toString();
   }
 
-  choseOperattion(operation: string): string | undefined {
-    if (this.operations === "") return;
-    if (this.previousOperand !== "") {
+  chooseOperation(operation: string): void {
+    if (this.operation !== undefined) this.compute();
+    if (this.currentOperand !== "") {
       this.compute();
     }
-    this.operations = operation;
+    this.operation = operation;
     this.previousOperand = this.currentOperand;
     this.currentOperand = "";
   }
 
   compute() {
-    let compute: number;
+    let computation: number;
     const previous: number = parseFloat(this.previousOperand);
     const current: number = parseFloat(this.currentOperand);
 
     if (isNaN(previous) || isNaN(current)) return;
 
-    switch (this.operations) {
+    switch (this.operation) {
       case "+":
-        compute = previous + current;
+        computation = previous + current;
         break;
       case "-":
-        compute = previous - current;
+        computation = previous - current;
         break;
       case "÷":
         if (current === 0) return;
-        compute = previous / current;
+        computation = previous / current;
         break;
       case "x":
-        compute = previous * current;
+        computation = previous * current;
         break;
       default:
         return;
     }
 
-    this.currentOperand = compute.toString();
-    this.operations = undefined;
+    this.currentOperand = computation.toString();
+    this.operation = undefined;
     this.previousOperand = "";
   }
 
   getDisplayNumber(number: string): string {
     const integerNumber: number = parseFloat(number.split(".")[0]);
     const decimalNumber: string = number.split(".")[1];
-    let integerDisplay: string
+    let integerDisplay: string;
 
     if (isNaN(integerNumber)) {
       integerDisplay = "";
     } else {
-      integerDisplay = integerNumber.toLocaleString("fr", {maximumFractionDigits: 0})
+      integerDisplay = integerNumber.toLocaleString("fr", {
+        maximumFractionDigits: 0,
+      });
     }
 
     if (decimalNumber != null) {
-      return `${integerDisplay}.${decimalNumber}`
+      return `${integerDisplay}.${decimalNumber}`;
     } else {
-      return integerDisplay
+      return integerDisplay;
     }
-
-    return parseFloat(number).toLocaleString("fr");
   }
 
   updateDisplay() {
@@ -94,9 +94,10 @@ export class Calculator {
       this.currentOperand
     );
 
-    if (this.operations != null)
+    if (this.operation != null) {
       this.previousOperandTextElement.innerText = `${this.getDisplayNumber(
         this.previousOperand
-      )} ${this.operations}`;
+      )} ${this.operation}`;
+    }
   }
 }
