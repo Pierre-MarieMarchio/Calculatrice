@@ -11,6 +11,7 @@ body {
 }
 
 .calculator {
+    display: grid;
     background-color: #ffffff;
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
