@@ -1,8 +1,8 @@
 import { Calculator } from "./calculatrice.js";
 
-const numberButton: NodeListOf<HTMLElement> =
+const numberButton: NodeListOf<HTMLElement> | null =
   document.querySelectorAll("[data-number]");
-const operationButton: NodeListOf<HTMLElement> =
+const operationButton: NodeListOf<HTMLElement> | null =
   document.querySelectorAll("[data-operation]");
 const allClearButton: HTMLElement | null =
   document.querySelector("[data-allClear]");
@@ -23,35 +23,54 @@ if (previousOperandTextElement && currentOperandTextElement) {
     currentOperandTextElement
   );
 
-  numberButton.forEach((button) => {
-    button.addEventListener("click", () => {
-      calculator.appendNumber(button.innerText);
+  if (numberButton) {
+    numberButton.forEach((button) => {
+      button.addEventListener("click", () => {
+        calculator.appendNumber(button.innerText);
+        calculator.updateDisplay();
+      });
+    });
+  } else {
+    console.error("Il y a une couille dans le potage: numberButton");
+  }
+
+  if (operationButton) {
+    operationButton?.forEach((button) => {
+      button.addEventListener("click", () => {
+        calculator.chooseOperation(button.innerText);
+        calculator.updateDisplay();
+      });
+    });
+  } else {
+    console.error("Il y a une couille dans le potage: operationButton");
+  }
+
+  if (equalsButton) {
+    equalsButton?.addEventListener("click", () => {
+      calculator.compute();
       calculator.updateDisplay();
     });
-  });
+  } else {
+    console.error("Il y a une couille dans le potage: equalsButton");
+  }
 
-  operationButton.forEach((button) => {
-    button.addEventListener("click", () => {
-      calculator.chooseOperation(button.innerText);
+  if (allClearButton) {
+    allClearButton?.addEventListener("click", () => {
+      calculator.clear();
       calculator.updateDisplay();
     });
-  });
+  } else {
+    console.error("Il y a une couille dans le potage: allClearButton");
+  }
 
-  equalsButton?.addEventListener("click", () => {
-    calculator.compute();
-    calculator.updateDisplay();
-  });
-
-  allClearButton?.addEventListener("click", () => {
-    calculator.clear();
-    calculator.updateDisplay();
-  });
-
-  deleteButton?.addEventListener("click", () => {
-    calculator.delete();
-    calculator.updateDisplay();
-  });
-
+  if (deleteButton) {
+    deleteButton?.addEventListener("click", () => {
+      calculator.delete();
+      calculator.updateDisplay();
+    });
+  } else {
+    console.error("Il y a une couille dans le potage: deleteButton");
+  }
 } else {
-  console.error("Il y a une couille dans le potage");
+  console.error("Il y a une couille dans le potage: Calculator initialization");
 }

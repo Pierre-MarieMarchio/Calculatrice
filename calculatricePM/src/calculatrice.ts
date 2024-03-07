@@ -2,6 +2,7 @@ export class Calculator {
   previousOperandTextElement: HTMLElement;
   currentOperandTextElement: HTMLElement;
   currentOperand: string = "";
+  currentOperandCopie: string = "";
   previousOperand: string = "";
   operation: string | undefined;
 
@@ -18,28 +19,38 @@ export class Calculator {
     this.currentOperand = "";
     this.previousOperand = "";
     this.operation = undefined;
+    this.updateDisplay();
   }
 
-  delete() {
+  delete(): void {
     this.currentOperand = this.currentOperand.toString().slice(0, -1);
+    this.updateDisplay();
   }
 
-  appendNumber(number: string) {
+  appendNumber(number: string): void {
     if (number === "." && this.currentOperand.includes(".")) return;
     this.currentOperand = this.currentOperand.toString() + number.toString();
   }
 
   chooseOperation(operation: string): void {
-    if (this.operation !== undefined) this.compute();
-    if (this.currentOperand !== "") {
-      this.compute();
+    if (this.currentOperand !== "")
+      this.currentOperandCopie = this.currentOperand;
+
+    if (this.operation === operation && this.currentOperand == "") {
+      this.currentOperand = this.currentOperandCopie;
     }
+
+    if (this.operation !== undefined) this.compute();
+
     this.operation = operation;
-    this.previousOperand = this.currentOperand;
-    this.currentOperand = "";
+
+    if (this.currentOperand !== "") {
+      this.previousOperand = this.currentOperand;
+      this.currentOperand = "";
+    }
   }
 
-  compute() {
+  compute(): void {
     let computation: number;
     const previous: number = parseFloat(this.previousOperand);
     const current: number = parseFloat(this.currentOperand);
@@ -89,7 +100,7 @@ export class Calculator {
     }
   }
 
-  updateDisplay() {
+  updateDisplay() : void {
     this.currentOperandTextElement.innerText = this.getDisplayNumber(
       this.currentOperand
     );
@@ -98,6 +109,8 @@ export class Calculator {
       this.previousOperandTextElement.innerText = `${this.getDisplayNumber(
         this.previousOperand
       )} ${this.operation}`;
+    } else {
+      this.previousOperandTextElement.innerText = "";
     }
   }
 }
